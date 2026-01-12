@@ -1,3 +1,29 @@
+export function addfilters(token,categories) {
+    if (!token) {
+        // Ajout des filtres
+        const filtres = document.querySelector(".filtres");
+
+        // Ajout du filtre "Tous"
+        const filtreTous = document.createElement("button");
+        filtreTous.innerHTML = `Tous`;
+        filtreTous.classList.add("selected");
+        filtreTous.id = "0";
+        filtres.appendChild(filtreTous);
+
+        // Ajout des autres filtres
+        for (let categorie of categories) {
+            const idCategorie = categorie.id;
+            const title = categorie.name;
+            const filtre = document.createElement("button")
+            filtre.innerHTML = `${title}`;
+            filtre.id = `${idCategorie}`;
+            filtres.appendChild(filtre);
+        };
+
+        return filtres;
+    };
+};
+
 /**
  * cette fonction permet la connexion des utilisateurs
  * @param {string} email : e-mail de connexion saisi
@@ -46,6 +72,10 @@ export function isConnected() {
     }
 };
 
+/**
+ * Cette fonction change la page si il y a un token (connexion ou non)
+ * @param {bool} token : prend en entrer la présence ou non du token
+ */
 export function connectedElements(token) {
     if (token === true) {
         //création du bandeau d'edition
@@ -56,5 +86,27 @@ export function connectedElements(token) {
         const body = document.querySelector("body");
         // Ajout du bandeau au début du body
         body.prepend(editBanner);
+        // Modification du bouton login en logout
+        const loginBtn = document.querySelector(".loginBtn");
+        loginBtn.innerHTML = "logout";
+        loginBtn.classList.add("logoutBtn");
+        loginBtn.classList.remove("loginBtn");
+
+        //suppression des filtres
+
+    };
+};
+
+export function logout(token) {
+    if (token) {
+        const logoutBtn = document.querySelector(".logoutBtn");
+        logoutBtn.addEventListener("click", () => {
+            // Suppression du token et de l'ID pour déconnexion
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
+
+            // rafraichissement de la page
+            window.location.href = "index.html";
+        });
     };
 };

@@ -1,5 +1,8 @@
 // import des fonctions
-import { isConnected,connectedElements } from "./fonctions.js";
+import { addfilters,isConnected,connectedElements,logout } from "./fonctions.js";
+
+// Vérification de la connexion d'un utilisateur
+const token = isConnected();
 
 // Récupération des traveaux depuis l'API
 const reponseWorks = await fetch('http://localhost:5678/api/works');
@@ -25,30 +28,13 @@ for (let work of works) {
 };
 
 // Ajout des filtres
-const filtres = document.querySelector(".filtres");
-
-// Ajout du filtre "Tous"
-const filtreTous = document.createElement("button");
-filtreTous.innerHTML = `Tous`;
-filtreTous.classList.add("selected");
-filtreTous.id = "0";
-filtres.appendChild(filtreTous);
-
-// Ajout des autres filtres
-for (let categorie of categories) {
-    const idCategorie = categorie.id;
-    const title = categorie.name;
-    const filtre = document.createElement("button")
-    filtre.innerHTML = `${title}`;
-    filtre.id = `${idCategorie}`;
-    filtres.appendChild(filtre);
-};
-
-// Vérification de la connexion d'un utilisateur
-const token = isConnected();
+const filtres = addfilters(token,categories);
 
 // Affichage des éléments si l'utilisateur est connecté
 connectedElements(token);
+
+// Déconnexion
+logout(token);
 
 // Détection des elements au clic
 const buttons = filtres.children;
