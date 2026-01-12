@@ -1,12 +1,13 @@
+// import des fonctions
+import { isConnected,connectedElements } from "./fonctions.js";
+
 // Récupération des traveaux depuis l'API
 const reponseWorks = await fetch('http://localhost:5678/api/works');
 const works = await reponseWorks.json();
-// console.log(works);
 
 // récupération des Catégories
 const reponseCategories = await fetch('http://localhost:5678/api/categories');
 const categories = await reponseCategories.json();
-// console.log(categories);
 
 // Suppressions des éléments dans la <div class="gallery">
 const gallery = document.querySelector(".gallery");
@@ -21,9 +22,7 @@ for (let work of works) {
 				        <figcaption>${title}</figcaption>`;
     gallery.appendChild(figure);
     // console.log(work)
-}
-// console.log(gallery);
-
+};
 
 // Ajout des filtres
 const filtres = document.querySelector(".filtres");
@@ -43,10 +42,13 @@ for (let categorie of categories) {
     filtre.innerHTML = `${title}`;
     filtre.id = `${idCategorie}`;
     filtres.appendChild(filtre);
-    // console.log(filtre);
 };
 
-// console.log(filtres);
+// Vérification de la connexion d'un utilisateur
+const token = isConnected();
+
+// Affichage des éléments si l'utilisateur est connecté
+connectedElements(token);
 
 // Détection des elements au clic
 const buttons = filtres.children;

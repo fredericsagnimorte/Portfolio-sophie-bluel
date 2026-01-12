@@ -239,9 +239,31 @@ input[type="submit"],
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+.hidden {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
 }
 
+.edit-banner {
+  background-color: black;
+  width: 100vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-left: calc(50% - 50vw);
+  height: 59px;
+  font-size: 16px;
+  font-weight: 400;
+}
