@@ -81,7 +81,7 @@ export function connectedElements(token) {
         //création du bandeau d'edition
         const editBanner = document.createElement("div");
         editBanner.classList.add("edit-banner");
-        editBanner.innerHTML = `<img src="./assets/icons/Edit.png">
+        editBanner.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>
 			                    <p>Mode édition</p>`;
         const body = document.querySelector("body");
         // Ajout du bandeau au début du body
