@@ -1,5 +1,5 @@
 // import des fonctions
-import { addfilters,isConnected,connectedElements,logout } from "./fonctions.js";
+import { addfilters,isConnected,connectedElements,logout,changeFilter } from "./fonctions.js";
 
 // Vérification de la connexion d'un utilisateur
 const token = isConnected();
@@ -37,41 +37,6 @@ connectedElements(token);
 logout(token);
 
 // Détection des elements au clic
-const buttons = filtres.children;
+changeFilter(token,filtres);
 
-
-for (let button of buttons) {
-    button.addEventListener("click", (event) => {
-        for (let btn of buttons) {
-            btn.classList.remove("selected");
-        }
-        event.target.classList.add("selected");
-
-        // Remise à 0 de l'affichage des éléments
-        gallery.innerHTML = "";
-
-        // Ajout dynamique des éléments en fonction du filtre
-        if (event.target.id === "0") {
-            for (let work of works) {
-                const imageUrl = work.imageUrl;
-                const title = work.title;
-                const figure = document.createElement("figure");
-                figure.innerHTML = `<img src="${imageUrl}" alt="${title}">
-                            <figcaption>${title}</figcaption>`;
-                gallery.appendChild(figure);
-            };
-        } else {
-            for (let work of works) {
-                if (work.category.id === Number(event.target.id)) {
-                    const imageUrl = work.imageUrl;
-                    const title = work.title;
-                    const figure = document.createElement("figure");
-                    figure.innerHTML = `<img src="${imageUrl}" alt="${title}">
-                             <figcaption>${title}</figcaption>`;
-                    gallery.appendChild(figure);
-                };
-            };
-        };
-    });
-};
 

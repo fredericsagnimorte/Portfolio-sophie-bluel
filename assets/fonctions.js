@@ -1,4 +1,5 @@
-export function addfilters(token,categories) {
+export function addfilters(token, categories) {
+    // Affichage des filtres que si l'utilisateur n'est pas connecté
     if (!token) {
         // Ajout des filtres
         const filtres = document.querySelector(".filtres");
@@ -88,12 +89,16 @@ export function connectedElements(token) {
         body.prepend(editBanner);
         // Modification du bouton login en logout
         const loginBtn = document.querySelector(".loginBtn");
-        loginBtn.innerHTML = "logout";
+        loginBtn.innerHTML = `<a href="./index.html">logout</a>`;
         loginBtn.classList.add("logoutBtn");
         loginBtn.classList.remove("loginBtn");
 
-        //suppression des filtres
-
+        // Ajout du bouton de modification
+        const modifyBtn = document.createElement("button");
+        modifyBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>
+                            modifier`;
+        const portfolioHeader = document.querySelector(".portfolio-header");
+        portfolioHeader.appendChild(modifyBtn); 
     };
 };
 
@@ -104,9 +109,46 @@ export function logout(token) {
             // Suppression du token et de l'ID pour déconnexion
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
-
-            // rafraichissement de la page
-            window.location.href = "index.html";
         });
+    };
+};
+
+export function changeFilter(token, filtres) {
+    if (!token) {
+        const buttons = filtres.children;
+        for (let button of buttons) {
+            button.addEventListener("click", (event) => {
+                for (let btn of buttons) {
+                    btn.classList.remove("selected");
+                }
+                event.target.classList.add("selected");
+
+                // Remise à 0 de l'affichage des éléments
+                gallery.innerHTML = "";
+
+                // Ajout dynamique des éléments en fonction du filtre
+                if (event.target.id === "0") {
+                    for (let work of works) {
+                        const imageUrl = work.imageUrl;
+                        const title = work.title;
+                        const figure = document.createElement("figure");
+                        figure.innerHTML = `<img src="${imageUrl}" alt="${title}">
+                            <figcaption>${title}</figcaption>`;
+                        gallery.appendChild(figure);
+                    };
+                } else {
+                    for (let work of works) {
+                        if (work.category.id === Number(event.target.id)) {
+                            const imageUrl = work.imageUrl;
+                            const title = work.title;
+                            const figure = document.createElement("figure");
+                            figure.innerHTML = `<img src="${imageUrl}" alt="${title}">
+                             <figcaption>${title}</figcaption>`;
+                            gallery.appendChild(figure);
+                        };
+                    };
+                };
+            });
+        };
     };
 };
