@@ -46,13 +46,15 @@ export function isConnected() {
     }
 };
 
-export function connectedElements(token){
-    if(token === true){
+export function connectedElements(token) {
+    if (token === true) {
         //création du bandeau d'edition
         const editBanner = document.createElement("div");
         editBanner.classList.add("edit-banner");
         editBanner.innerHTML = `<img src="./assets/icons/Edit.png">
 			                    <p>Mode édition</p>`;
-
+        const body = document.querySelector("body");
+        // Ajout du bandeau au début du body
+        body.prepend(editBanner);
     };
 };
