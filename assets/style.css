@@ -410,11 +410,20 @@ input[type="submit"],
 	align-items: center;
 }
 
-.popupBanner i {
+.popupBanner .fa-xmark {
 	position: absolute;
 	right: 20px;
 	top: 20px;
 	cursor: pointer;
+}
+
+.popupBanner .fa-arrow-left {
+	position: absolute;
+	left: 25px;
+	top: 25px;
+	cursor: pointer;
+	font-size: large;
+	display: none;
 }
 
 .popupBanner h2 {
@@ -428,10 +437,41 @@ input[type="submit"],
 	border-bottom: 1px solid #B3B3B3;
 	padding-bottom: 40px;
 	overflow-y: scroll;
+	min-height: 395px;
+	min-width: 436px;
+}
+
+.formImg {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.formImg #titre {
+	height: 51px;
+	border:none;
+	box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+.formImg select {
+	background: none;
+	border:none;
+	height: 51px;
+	box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+.formImg div {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 10px;
+	width: 420px;
 }
 
 .popupGallery {
-	min-height: 395px;
 	display: grid;
 	grid-template-columns: repeat(5, 78px);
 	gap: 10px;
@@ -480,6 +520,13 @@ input[type="submit"],
 	border: none;
 	margin-top: 20px;
 	font-style: bold;
+	cursor: pointer;
+	width: 237px;
+}
+
+.lock {
+	background: #A7A7A7 !important;
+
 }
 
 .error-message {

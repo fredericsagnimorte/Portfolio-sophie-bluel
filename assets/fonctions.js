@@ -182,6 +182,7 @@ function afficherPopup() {
     afficheTitleGallery();
     afficheImgGallery();
     addEventListenerSupprImg();
+    addEventListenerChangeAffichage();
 };
 
 /**
@@ -231,6 +232,35 @@ function afficheTilteModify() {
     document.querySelector(".popupBanner h2").innerHTML = "Ajout photo"
 };
 
+function afficheAddImg() {
+    const btn = document.querySelector(".popup button")
+    document.querySelector(".popupMain").innerHTML = 
+    `<div class="formImg">
+        <div class="inputImg">
+            <input type="file" id="image" name="image" accept="image/*" />
+        </div>
+        <div>				
+            <label for="titre">Titre</label>
+            <input type="text" name="titre" id="titre">
+        </div>
+        <div>
+            <label for="categorie">Catégorie</label>
+            <select id="category" name="category">
+                <option value="">-- Choisir une catégorie --</option>
+                <option value="objets">Objets</option>
+                <option value="appartements">Appartements</option>
+                <option value="hotels">Hôtels</option>
+            </select>             
+        </div>
+    </div>`;
+    document.querySelector(".fa-arrow-left").classList.add("active");
+    btn.classList.add("sendPhoto");
+    btn.classList.add("lock");
+    btn.classList.remove("addPhoto");
+    btn.innerHTML = "Valider";
+
+
+}
 
 /**
  * Choisi l'image à supprimer
@@ -240,13 +270,26 @@ async function addEventListenerSupprImg() {
     const reponseWorks = await fetch('http://localhost:5678/api/works');
     const works = await reponseWorks.json();
     const supprImgs = document.querySelectorAll(".popupGallery .fa-trash-can");
-    console.log(supprImgs)
     for (let i = 0; i < supprImgs.length; i++) {
         supprImgs[i].addEventListener("click", () => {
             deleteWork(works[i].id);
         });
     };
 };
+
+function addEventListenerChangeAffichage() {
+    const addImgBtn = document.querySelector(".addPhoto");
+    addImgBtn.addEventListener("click", () => {
+        if (addImgBtn.classList.contains("addPhoto")) {
+            afficheTilteModify();
+            afficheAddImg();
+        } else if (addImgBtn.classList.contains("sendPhoto")) {
+
+        };
+    });
+};
+
+
 
 /**
  * supprime l'image id
