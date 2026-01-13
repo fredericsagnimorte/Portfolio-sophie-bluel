@@ -7,19 +7,87 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -27,46 +95,68 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
-ol, ul {
+
+ol,
+ul {
 	list-style: none;
 }
-blockquote, q {
+
+blockquote,
+q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
+	margin: auto;
+	font-family: 'Work Sans';
 	font-size: 14px;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0
 }
+
 section {
 	margin: 50px 0
 }
 
-h1{
+h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
@@ -75,35 +165,40 @@ h1{
 	color: #B1663C
 }
 
-h1 > span {
+h1>span {
 	font-family: 'Work Sans';
-	font-size:10px;
+	font-size: 10px;
 	letter-spacing: 0.1em;
-;
+	;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
 }
-.login-link{
+
+.login-link {
 	font-weight: 600;
 }
-nav a{
+
+nav a {
 	color: inherit;
 	text-decoration: none;
 }
-nav a:hover{
-		color: #B1663C;
+
+nav a:hover {
+	color: #B1663C;
 }
+
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 
 }
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
@@ -112,13 +207,16 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
 }
+
 #introduction figure {
 	flex: 1
 }
+
 #introduction img {
 	display: block;
 	margin: auto;
@@ -128,6 +226,7 @@ li:hover {
 #introduction article {
 	flex: 1
 }
+
 #introduction h2 {
 	margin-bottom: 1em;
 }
@@ -139,14 +238,16 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 }
+
 .portfolio-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 1em;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	justify-content: center;
+	margin-bottom: 1em;
 }
-.portfolio-header button{
+
+.portfolio-header button {
 	font-family: 'Work Sans';
 	font-size: 14px;
 	font-weight: 400;
@@ -154,29 +255,33 @@ li:hover {
 	border: none;
 	cursor: pointer;
 }
+
 .filtres {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  padding: 60px 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	padding: 60px 0px;
 }
+
 .filtres button {
-  opacity: 1;
-  border-radius: 60px;
-  border-width: 1px;
-  color: #1D6154;
-  background: rgba(0,0,0,0);
-  border-color: #1D6154;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: Syne;
-  padding: 10px 15px;
+	opacity: 1;
+	border-radius: 60px;
+	border-width: 1px;
+	color: #1D6154;
+	background: rgba(0, 0, 0, 0);
+	border-color: #1D6154;
+	font-size: 16px;
+	font-weight: 700;
+	font-family: Syne;
+	padding: 10px 15px;
 }
+
 .selected {
-  color: white !important;
-  background-color: #1D6154 !important;
+	color: white !important;
+	background-color: #1D6154 !important;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -189,21 +294,25 @@ li:hover {
 	width: 100%;
 
 }
+
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
+
+#contact>* {
 	text-align: center;
 
 }
-#contact h2{
+
+#contact h2 {
 	margin-bottom: 20px;
 }
+
 #contact form,
 #login form {
 	text-align: left;
-	margin-top:30px;
+	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -215,42 +324,47 @@ margin: auto;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 #contact label,
 #login label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 #login {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 100px 0 200px 0;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	padding: 100px 0 200px 0;
 }
-#login form{
+
+#login form {
 	width: 33%;
 }
+
 #login button:hover {
-  background-color: #0E2F28;
+	background-color: #0E2F28;
 }
 
 input[type="submit"],
-#login button{
+#login button {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin: 2em auto;
 	width: 180px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
 }
 
-#login button{
-	border:none;
+#login button {
+	border: none;
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -258,12 +372,119 @@ input[type="submit"],
 }
 
 .hidden {
-    display: none;
+	display: none;
+}
+
+.active {
+	display: flex !important;
+}
+
+.popupBackground {
+	display: none;
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0, 0, 0, 30%);
+	top: 0vh;
+	left: 0%;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup {
+	display: flex;
+	background: white;
+	height: 688px;
+	width: 630px;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 10px;
+}
+
+.popupBanner {
+	width: 100%;
+	height: 20%;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.popupBanner i {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	cursor: pointer;
+}
+
+.popupBanner h2 {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 26px;
+	color: #000;
+}
+
+.popupMain {
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 40px;
+	overflow-y: scroll;
+}
+
+.popupGallery {
+	min-height: 395px;
+	display: grid;
+	grid-template-columns: repeat(5, 78px);
+	gap: 10px;
+}
+
+.popupGallery figure {
+	width: 78px;
+	height: 104px;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.popupGallery figure img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.popupGallery figure .fa-trash-can {
+	color: white;
+	background: black;
+	width: 17px;
+	height: 17px;
+	text-align: center;
+	padding: 1px 1px 2px 1px;
+	border-radius: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 11px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+
+.popup button {
+	opacity: 1;
+	border-radius: 60px;
+	color: #ffffff;
+	background: #1D6154;
+	font-size: 14px;
+	font-weight: 700;
+	font-family: "Syne";
+	padding: 10px 40px 10px 40px;
+	border: none;
+	margin-top: 20px;
+	font-style: bold;
 }
 
 .error-message {
-    color: red;
-    margin-top: 10px;
+	color: red;
+	margin-top: 10px;
 }
 
 footer nav ul {
@@ -273,15 +494,15 @@ footer nav ul {
 }
 
 .edit-banner {
-  background-color: black;
-  width: 100vw;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-left: calc(50% - 50vw);
-  height: 59px;
-  font-size: 16px;
-  font-weight: 400;
+	background-color: black;
+	width: 100vw;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-left: calc(50% - 50vw);
+	height: 59px;
+	font-size: 16px;
+	font-weight: 400;
 }
