@@ -183,6 +183,7 @@ function afficherPopup() {
     afficheImgGallery();
     addEventListenerSupprImg();
     addEventListenerChangeAffichage();
+    addEventListenerGoBack();
 };
 
 /**
@@ -199,6 +200,9 @@ function cacherPopup() {
 async function afficheImgGallery() {
     const reponseWorks = await fetch('http://localhost:5678/api/works');
     const works = await reponseWorks.json();
+
+    // Enlève la class "lock" du bouton si présente
+    document.querySelector(".popup button").classList.remove("lock");
 
     const popupMain = document.querySelector(".popupMain");
     const popupGallery = document.createElement("div");
@@ -232,13 +236,25 @@ function afficheTilteModify() {
     document.querySelector(".popupBanner h2").innerHTML = "Ajout photo"
 };
 
-function afficheAddImg() {
+async function afficheAddImg() {
+    const reponseCategories = await fetch('http://localhost:5678/api/categories');
+    const categories = await reponseCategories.json();
+
+    // ajout de la partie "ajout d'image"
     const btn = document.querySelector(".popup button")
-    document.querySelector(".popupMain").innerHTML = 
-    `<div class="formImg">
-        <div class="inputImg">
-            <input type="file" id="image" name="image" accept="image/*" />
-        </div>
+    document.querySelector(".popupMain").innerHTML =
+        `<div class="formImg">
+            <div class="upload-box">
+                <label for="imageUpload" class="upload-label">
+                    <div class="upload-content">
+                        <img src="./assets/icons/icon-image.svg" alt="" class="upload-icon">
+                        <span class="upload-button">+ Ajouter photo</span>
+                        <p class="upload-info">jpg, png : 4Mo max</p>
+                    </div>
+                </label>
+                <input type="file" id="imageUpload" name="image" accept="image/png, image/jpeg" hidden>
+                <img id="thumbnail" alt="Aperçu">
+            </div>
         <div>				
             <label for="titre">Titre</label>
             <input type="text" name="titre" id="titre">
@@ -247,20 +263,58 @@ function afficheAddImg() {
             <label for="categorie">Catégorie</label>
             <select id="category" name="category">
                 <option value="">-- Choisir une catégorie --</option>
-                <option value="objets">Objets</option>
-                <option value="appartements">Appartements</option>
-                <option value="hotels">Hôtels</option>
             </select>             
         </div>
     </div>`;
+
+    const select = document.querySelector("#category")
+
+    // Ajout des catégorie
+    for (let categorie of categories) {
+        const idCategorie = categorie.id;
+        const title = categorie.name;
+        const option = document.createElement("option");
+        option.value = idCategorie
+        option.innerHTML = `${title}`
+        select.appendChild(option);
+    };
+
+    // afficher l'image en mignature si selectionnée
+    const input = document.querySelector("#imageUpload");
+    const thumbnail = document.querySelector("#thumbnail");
+
+    input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (!file) return;
+
+        // Vérification optionnelle
+        if (!file.type.startsWith("image/")) {
+            alert("Le fichier doit être une image");
+            return;
+        }
+
+        thumbnail.src = URL.createObjectURL(file);
+        thumbnail.style.display = "block";
+    });
+
+    // modification du bouton
     document.querySelector(".fa-arrow-left").classList.add("active");
     btn.classList.add("sendPhoto");
     btn.classList.add("lock");
     btn.classList.remove("addPhoto");
     btn.innerHTML = "Valider";
 
+    // recuperation des éléments à vérifier
+    const inputImage = document.querySelector("#imageUpload");
+    const inputText = document.querySelector("#titre");
+    const selectCategorie = document.querySelector("#category");
+   
+    inputImage.addEventListener("change", ()=>{addEventListenerIsAllToSend()});
+    inputText.addEventListener("change", ()=>{addEventListenerIsAllToSend()});
+    selectCategorie.addEventListener("change", ()=>{addEventListenerIsAllToSend()});
 
-}
+
+};
 
 /**
  * Choisi l'image à supprimer
@@ -277,18 +331,67 @@ async function addEventListenerSupprImg() {
     };
 };
 
+/**
+ * permet de changer l'affichage du popup ou envoyer une image
+ */
 function addEventListenerChangeAffichage() {
     const addImgBtn = document.querySelector(".addPhoto");
+
     addImgBtn.addEventListener("click", () => {
         if (addImgBtn.classList.contains("addPhoto")) {
             afficheTilteModify();
             afficheAddImg();
         } else if (addImgBtn.classList.contains("sendPhoto")) {
-
+            // vérification de la présence des tout les éléments 
+            // ou affichage d'un message d'erreur
+            const inputImage = document.querySelector("#imageUpload");
+            const inputText = document.querySelector("#titre");
+            const selectCategorie = document.querySelector("#category");
+            const image = inputImage.files[0];
+            const titre = inputText.value;
+            const categorie = selectCategorie.value;
+            if (image && titre && categorie) {
+                console.log("envoi de l'image");
+            } else {
+                console.log("un élément est manquant");
+            };
         };
     });
 };
+function addEventListenerIsAllToSend() {
+    const inputImage = document.querySelector("#imageUpload");
+    const inputText = document.querySelector("#titre");
+    const selectCategorie = document.querySelector("#category");
+   
+    const image = inputImage.files[0];
+    const titre = inputText.value;
+    const categorie = selectCategorie.value;
 
+    if (image && titre && categorie) {
+        const addImgBtn = document.querySelector(".sendPhoto");
+        addImgBtn.classList.remove("lock")
+    }
+};
+
+
+/**
+ * revien sur l'affichage de suppression des images
+ */
+function addEventListenerGoBack() {
+    const goBackbtn = document.querySelector(".fa-arrow-left");
+    goBackbtn.addEventListener("click", () => {
+
+        document.querySelector(".popupMain").innerHTML = ``;
+        afficheTitleGallery();
+        afficheImgGallery();
+        const btn = document.querySelector(".popup button")
+        document.querySelector(".fa-arrow-left").classList.remove("active");
+        btn.classList.add("addPhoto");
+        btn.classList.remove("lock");
+        btn.classList.remove("sendPhoto");
+        btn.innerHTML = "Ajouter une photo";
+    });
+};
 
 
 /**
@@ -310,8 +413,6 @@ async function deleteWork(id) {
 
 
     // raffraichissement de l'affichage
-    const reponseWorks = await fetch('http://localhost:5678/api/works');
-    const works = await reponseWorks.json();
     document.querySelector(".popupMain").innerHTML = "";
     afficheImgGallery();
     affichageImg();
