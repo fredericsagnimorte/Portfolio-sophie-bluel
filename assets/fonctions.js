@@ -28,7 +28,6 @@ export async function affichageImg() {
         figure.innerHTML = `<img src="${imageUrl}" alt="${title}">
                             <figcaption>${title}</figcaption>`;
         gallery.appendChild(figure);
-        // console.log(work)
     };
 };
 
@@ -181,7 +180,6 @@ function afficherPopup() {
     popupBackground.classList.add("active");
     afficheTitleGallery();
     afficheImgGallery();
-    addEventListenerSupprImg();
     addEventListenerChangeAffichage();
     addEventListenerGoBack();
 };
@@ -220,6 +218,9 @@ async function afficheImgGallery() {
 				        <i class="fa-solid fa-trash-can"></i>`;
         popupGallery.appendChild(figure);
     };
+
+
+    addEventListenerSupprImg();
 };
 
 /**
@@ -262,10 +263,11 @@ async function afficheAddImg() {
         <div>
             <label for="categorie">Catégorie</label>
             <select id="category" name="category">
-                <option value="">-- Choisir une catégorie --</option>
+                <option value="0">-- Choisir une catégorie --</option>
             </select>             
         </div>
-    </div>`;
+    </div>
+    <p class="error-message hidden">Il manque une élément</p>`;
 
     const select = document.querySelector("#category")
 
@@ -308,10 +310,10 @@ async function afficheAddImg() {
     const inputImage = document.querySelector("#imageUpload");
     const inputText = document.querySelector("#titre");
     const selectCategorie = document.querySelector("#category");
-   
-    inputImage.addEventListener("change", ()=>{addEventListenerIsAllToSend()});
-    inputText.addEventListener("change", ()=>{addEventListenerIsAllToSend()});
-    selectCategorie.addEventListener("change", ()=>{addEventListenerIsAllToSend()});
+
+    inputImage.addEventListener("change", () => { addEventListenerIsAllToSend() });
+    inputText.addEventListener("change", () => { addEventListenerIsAllToSend() });
+    selectCategorie.addEventListener("change", () => { addEventListenerIsAllToSend() });
 
 
 };
@@ -325,8 +327,14 @@ async function addEventListenerSupprImg() {
     const works = await reponseWorks.json();
     const supprImgs = document.querySelectorAll(".popupGallery .fa-trash-can");
     for (let i = 0; i < supprImgs.length; i++) {
-        supprImgs[i].addEventListener("click", () => {
-            deleteWork(works[i].id);
+        supprImgs[i].addEventListener("click", async () => {
+            await deleteWork(works[i].id);
+
+
+            // raffraichissement de l'affichage
+            document.querySelector(".popupMain").innerHTML = "";
+            afficheImgGallery();
+            affichageImg();
         });
     };
 };
@@ -350,10 +358,16 @@ function addEventListenerChangeAffichage() {
             const image = inputImage.files[0];
             const titre = inputText.value;
             const categorie = selectCategorie.value;
-            if (image && titre && categorie) {
-                console.log("envoi de l'image");
-            } else {
-                console.log("un élément est manquant");
+            if (image && titre && categorie != "0") {
+                // ajout de l'image
+                addWork(image, titre, categorie);
+
+                // remise en place du bouton ajouter photo
+                turnBackAddPhotoBtn();
+                cacherPopup();
+
+
+                affichageImg();
             };
         };
     });
@@ -362,14 +376,20 @@ function addEventListenerIsAllToSend() {
     const inputImage = document.querySelector("#imageUpload");
     const inputText = document.querySelector("#titre");
     const selectCategorie = document.querySelector("#category");
-   
+    const errorMsg = document.querySelector("p.error-message")
+
     const image = inputImage.files[0];
     const titre = inputText.value;
     const categorie = selectCategorie.value;
+    const addImgBtn = document.querySelector(".sendPhoto");
 
-    if (image && titre && categorie) {
-        const addImgBtn = document.querySelector(".sendPhoto");
-        addImgBtn.classList.remove("lock")
+    if (image && titre && categorie != "0") {
+        addImgBtn.classList.remove("lock");
+        errorMsg.classList.add("hidden");
+
+    } else {
+        addImgBtn.classList.add("lock");
+        errorMsg.classList.remove("hidden");
     }
 };
 
@@ -384,15 +404,18 @@ function addEventListenerGoBack() {
         document.querySelector(".popupMain").innerHTML = ``;
         afficheTitleGallery();
         afficheImgGallery();
-        const btn = document.querySelector(".popup button")
-        document.querySelector(".fa-arrow-left").classList.remove("active");
-        btn.classList.add("addPhoto");
-        btn.classList.remove("lock");
-        btn.classList.remove("sendPhoto");
-        btn.innerHTML = "Ajouter une photo";
+        turnBackAddPhotoBtn()
     });
 };
 
+function turnBackAddPhotoBtn() {
+    const btn = document.querySelector(".popup button")
+    document.querySelector(".fa-arrow-left").classList.remove("active");
+    btn.classList.add("addPhoto");
+    btn.classList.remove("lock");
+    btn.classList.remove("sendPhoto");
+    btn.innerHTML = "Ajouter une photo";
+}
 
 /**
  * supprime l'image id
@@ -410,15 +433,30 @@ async function deleteWork(id) {
     if (!response.ok) {
         throw new Error(`Erreur ${response.status} lors de la suppression`);
     }
-
-
-    // raffraichissement de l'affichage
-    document.querySelector(".popupMain").innerHTML = "";
-    afficheImgGallery();
-    affichageImg();
+    return true;
 };
 
+async function addWork(image, titre, categorie) {
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", titre);
+    formData.append("category", categorie);
 
+    const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error("Erreur lors de l'envoi du projet");
+    };
+
+    return await response.json();
+};
 
 
 

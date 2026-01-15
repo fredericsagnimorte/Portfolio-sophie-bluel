@@ -598,6 +598,11 @@ input[type="submit"],
 	margin-top: 10px;
 }
 
+p.error-message {
+	text-align: center;
+	margin-top: 5px;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
