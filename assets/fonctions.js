@@ -356,7 +356,7 @@ function addEventListenerChangeAffichage() {
             const inputText = document.querySelector("#titre");
             const selectCategorie = document.querySelector("#category");
             const image = inputImage.files[0];
-            const titre = inputText.value;
+            const titre = escapeHTML(inputText.value);
             const categorie = selectCategorie.value;
             if (image && titre && categorie != "0") {
                 addAndRefresh(image, titre, categorie);
@@ -364,6 +364,17 @@ function addEventListenerChangeAffichage() {
         };
     });
 };
+
+function escapeHTML(str) {
+    return str
+        .replace(/\\/g, "&#92;")
+        .replace(/\//g, "&#47;")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 async function addAndRefresh(image, titre, categorie) {
     // ajout de l'image
