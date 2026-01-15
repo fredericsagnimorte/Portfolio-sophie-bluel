@@ -290,8 +290,8 @@ async function afficheAddImg() {
         if (!file) return;
 
         // Vérification optionnelle
-        if (!file.type.startsWith("image/")) {
-            alert("Le fichier doit être une image");
+        if (!file.type.startsWith("image/jpg") && !file.type.startsWith("image/png")) {
+            alert("Le fichier doit être une image jpg ou png.");
             return;
         }
 
