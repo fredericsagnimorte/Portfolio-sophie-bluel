@@ -267,7 +267,7 @@ async function afficheAddImg() {
             </select>             
         </div>
     </div>
-    <p class="error-message hidden">Il manque une élément</p>`;
+    <p class="error-message hidden">Il manque un élément.</p>`;
 
     const select = document.querySelector("#category")
 
@@ -359,19 +359,22 @@ function addEventListenerChangeAffichage() {
             const titre = inputText.value;
             const categorie = selectCategorie.value;
             if (image && titre && categorie != "0") {
-                // ajout de l'image
-                addWork(image, titre, categorie);
-
-                // remise en place du bouton ajouter photo
-                turnBackAddPhotoBtn();
-                cacherPopup();
-
-
-                affichageImg();
+                addAndRefresh(image, titre, categorie);
             };
         };
     });
 };
+
+async function addAndRefresh(image, titre, categorie) {
+    // ajout de l'image
+    await addWork(image, titre, categorie);
+
+    // remise en place du bouton ajouter photo
+    turnBackAddPhotoBtn();
+    cacherPopup();
+    affichageImg();
+};
+
 function addEventListenerIsAllToSend() {
     const inputImage = document.querySelector("#imageUpload");
     const inputText = document.querySelector("#titre");
@@ -451,11 +454,12 @@ async function addWork(image, titre, categorie) {
         body: formData
     });
 
+
     if (!response.ok) {
         throw new Error("Erreur lors de l'envoi du projet");
     };
 
-    return await response.json();
+    return response.json();
 };
 
 
