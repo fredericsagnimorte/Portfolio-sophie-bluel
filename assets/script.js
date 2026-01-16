@@ -29,4 +29,6 @@ logout(token);
 changeFilter(token,filtres);
 
 //afficher ou cacher la popup la popup de modification
-initAddEventListenerPopup(token);
+if(token){
+    initAddEventListenerPopup(token);
+};
