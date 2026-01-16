@@ -100,8 +100,11 @@ export function logout(token) {
     };
 };
 
-export function changeFilter(token, filtres) {
+export async function changeFilter(token, filtres) {
     if (!token) {
+        const reponseWorks = await fetch('http://localhost:5678/api/works');
+        const works = await reponseWorks.json();
+        const gallery = document.querySelector(".gallery");
         const buttons = filtres.children;
         for (let button of buttons) {
             button.addEventListener("click", (event) => {
@@ -144,7 +147,6 @@ export function changeFilter(token, filtres) {
  * Cette fonction initialise les écouteurs d'événements qui concernent 
  * l'affichage de la popup. 
  * @param {boolean} token : permet de savoir si l'utilisateur est connecté
- * @param {Element} works : éléments à afficher
  */
 export function initAddEventListenerPopup(token) {
 
