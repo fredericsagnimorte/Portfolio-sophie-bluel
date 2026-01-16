@@ -1,6 +1,8 @@
 // import des fonctions
-import { affichageImg,addfilters,isConnected,connectedElements,logout,changeFilter,
-    initAddEventListenerPopup } from "./fonctions.js";
+import {
+    affichageImg, addfilters, isConnected, connectedElements, logout, changeFilter,
+    initAddEventListenerPopup
+} from "./fonctions.js";
 
 // Vérification de la connexion d'un utilisateur
 const token = isConnected();
@@ -17,7 +19,7 @@ const categories = await reponseCategories.json();
 affichageImg();
 
 // Ajout des filtres
-const filtres = addfilters(token,categories);
+const filtres = addfilters(token, categories);
 
 // Affichage des éléments si l'utilisateur est connecté
 connectedElements(token);
@@ -26,9 +28,8 @@ connectedElements(token);
 logout(token);
 
 // Détection des elements au clic
-changeFilter(token,filtres);
+changeFilter(token, filtres);
 
 //afficher ou cacher la popup la popup de modification
-if(token){
-    initAddEventListenerPopup(token);
-};
+initAddEventListenerPopup(token);
+

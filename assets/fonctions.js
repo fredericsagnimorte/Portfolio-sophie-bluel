@@ -149,28 +149,28 @@ export async function changeFilter(token, filtres) {
  * @param {boolean} token : permet de savoir si l'utilisateur est connecté
  */
 export function initAddEventListenerPopup(token) {
-
-    // On écoute le click sur le bouton "modifier"
-    const modifyBtn = document.querySelector(".portfolio-header button");
-    const popupBackground = document.querySelector(".popupBackground");
-    modifyBtn.addEventListener("click", () => {
-        if (token) {
+    if (token) {
+        // On écoute le click sur le bouton "modifier"
+        const modifyBtn = document.querySelector(".portfolio-header button");
+        const popupBackground = document.querySelector(".popupBackground");
+        modifyBtn.addEventListener("click", () => {
             afficherPopup();
-        };
-    });
+        });
 
-    // On écoute le click sur la div "popupBackground"
-    popupBackground.addEventListener("click", (event) => {
-        if (event.target === popupBackground) {
+
+        // On écoute le click sur la div "popupBackground"
+        popupBackground.addEventListener("click", (event) => {
+            if (event.target === popupBackground) {
+                cacherPopup();
+            };
+        });
+
+        const xmark = document.querySelector(".popupBanner .fa-xmark");
+        // On écoute le click sur la croix
+        xmark.addEventListener("click", () => {
             cacherPopup();
-        };
-    });
-
-    const xmark = document.querySelector(".popupBanner .fa-xmark");
-    // On écoute le click sur la croix
-    xmark.addEventListener("click", () => {
-        cacherPopup();
-    });
+        });
+    };
 };
 
 /**
