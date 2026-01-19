@@ -201,14 +201,14 @@ function cacherPopup() {
 
     
     turnBackAddPhotoBtn();
-
-    // Suppression des elements de "popupGallery"
-    document.querySelector(".popupMain").innerHTML = "";
 };
 
 async function afficheImgGallery() {
     const reponseWorks = await fetch('http://localhost:5678/api/works');
     const works = await reponseWorks.json();
+
+    // Suppression des elements de "popupGallery"
+    document.querySelector(".popupMain").innerHTML = "";
 
     // Enlève la class "lock" du bouton si présente
     document.querySelector(".popup button").classList.remove("lock");
@@ -343,7 +343,6 @@ async function addEventListenerSupprImg() {
 
 
             // raffraichissement de l'affichage
-            document.querySelector(".popupMain").innerHTML = "";
             afficheImgGallery();
             affichageImg();
         });
