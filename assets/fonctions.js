@@ -31,9 +31,14 @@ export async function affichageImg() {
     };
 };
 
-export function addfilters(token, categories) {
+export async function addfilters(token) {
     // Affichage des filtres que si l'utilisateur n'est pas connecté
     if (!token) {
+
+        // récupération des Catégories
+        const reponseCategories = await fetch('http://localhost:5678/api/categories');
+        const categories = await reponseCategories.json();
+
         // Ajout des filtres
         const filtres = document.querySelector(".filtres");
 
@@ -53,7 +58,7 @@ export function addfilters(token, categories) {
             filtre.id = `${idCategorie}`;
             filtres.appendChild(filtre);
         };
-
+console.log(filtres)
         return filtres;
     };
 };

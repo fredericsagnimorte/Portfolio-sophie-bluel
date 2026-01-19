@@ -11,15 +11,12 @@ const token = isConnected();
 // const reponseWorks = await fetch('http://localhost:5678/api/works');
 // const works = await reponseWorks.json();
 
-// récupération des Catégories
-const reponseCategories = await fetch('http://localhost:5678/api/categories');
-const categories = await reponseCategories.json();
 
 // Ajout dynamique des éléments
 affichageImg();
 
 // Ajout des filtres
-const filtres = addfilters(token, categories);
+const filtres = await addfilters(token);
 
 // Affichage des éléments si l'utilisateur est connecté
 connectedElements(token);
