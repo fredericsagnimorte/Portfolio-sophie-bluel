@@ -195,8 +195,12 @@ function afficherPopup() {
  * Cette fonction cache la popup. 
  */
 function cacherPopup() {
+    
     const popupBackground = document.querySelector(".popupBackground");
     popupBackground.classList.remove("active");
+
+    
+    turnBackAddPhotoBtn();
 
     // Suppression des elements de "popupGallery"
     document.querySelector(".popupMain").innerHTML = "";
