@@ -1,6 +1,6 @@
 // import des fonctions
 import {
-    affichageImg, addfilters, isConnected, connectedElements, logout, changeFilter,
+    affichageImg, addfilters, isConnected, connectedElements, setupLogout, changeFilter,
     initAddEventListenerPopup
 } from "./fonctions.js";
 
@@ -22,7 +22,7 @@ const filtres = await addfilters(token);
 connectedElements(token);
 
 // Déconnexion
-logout(token);
+setupLogout(token);
 
 // Détection des elements au clic
 changeFilter(token, filtres);

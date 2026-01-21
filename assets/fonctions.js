@@ -58,7 +58,6 @@ export async function addfilters(token) {
             filtre.id = `${idCategorie}`;
             filtres.appendChild(filtre);
         };
-        console.log(filtres)
         return filtres;
     };
 };
@@ -92,7 +91,7 @@ export function connectedElements(token) {
     };
 };
 
-export function logout(token) {
+export function setupLogout(token) {
     if (token) {
         const logoutBtn = document.querySelector(".logoutBtn");
         logoutBtn.addEventListener("click", () => {
