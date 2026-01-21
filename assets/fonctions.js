@@ -210,7 +210,7 @@ async function afficheImgGallery() {
     document.querySelector(".popupMain").innerHTML = "";
 
     // Enlève la class "lock" du bouton si présente
-    document.querySelector(".popup .addPhoto").classList.remove("lock");
+    document.querySelector(".popup .addPhoto").removeAttribute("disabled");
 
     const popupMain = document.querySelector(".popupMain");
     const popupGallery = document.createElement("div");
@@ -312,7 +312,7 @@ async function afficheAddImg() {
     // modification du bouton
     document.querySelector(".arrow-left").classList.add("active");
     btn.classList.add("sendPhoto");
-    btn.classList.add("lock");
+    btn.setAttribute("disabled", "");
     btn.classList.remove("addPhoto");
     btn.innerHTML = "Valider";
 
@@ -407,11 +407,11 @@ function addEventListenerIsAllToSend() {
     const addImgBtn = document.querySelector(".sendPhoto");
 
     if (image && titre && categorie != "0") {
-        addImgBtn.classList.remove("lock");
+        addImgBtn.removeAttribute("disabled");
         errorMsg.classList.add("hidden");
 
     } else {
-        addImgBtn.classList.add("lock");
+        addImgBtn.setAttribute("disabled", "");
         errorMsg.classList.remove("hidden");
     }
 };
@@ -435,7 +435,7 @@ function turnBackAddPhotoBtn() {
     const btn = document.querySelector(".popup .sendPhoto");
     document.querySelector(".arrow-left").classList.remove("active");
     btn.classList.add("addPhoto");
-    btn.classList.remove("lock");
+    btn.removeAttribute("disabled");
     btn.classList.remove("sendPhoto");
     btn.innerHTML = "Ajouter une photo";
 }
