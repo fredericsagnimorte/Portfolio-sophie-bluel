@@ -58,7 +58,7 @@ export async function addfilters(token) {
             filtre.id = `${idCategorie}`;
             filtres.appendChild(filtre);
         };
-console.log(filtres)
+        console.log(filtres)
         return filtres;
     };
 };
@@ -89,8 +89,6 @@ export function connectedElements(token) {
                             modifier`;
         const portfolioHeader = document.querySelector(".portfolio-header");
         portfolioHeader.appendChild(modifyBtn);
-
-
     };
 };
 
@@ -170,7 +168,7 @@ export function initAddEventListenerPopup(token) {
             };
         });
 
-        const xmark = document.querySelector(".popupBanner .fa-xmark");
+        const xmark = document.querySelector(".popupBanner .xmark");
         // On écoute le click sur la croix
         xmark.addEventListener("click", () => {
             cacherPopup();
@@ -195,12 +193,13 @@ function afficherPopup() {
  * Cette fonction cache la popup. 
  */
 function cacherPopup() {
-    
+
     const popupBackground = document.querySelector(".popupBackground");
     popupBackground.classList.remove("active");
 
-    
-    turnBackAddPhotoBtn();
+    if (document.querySelector(".popup .sendPhoto")) {
+        turnBackAddPhotoBtn();
+    }
 };
 
 async function afficheImgGallery() {
@@ -211,7 +210,7 @@ async function afficheImgGallery() {
     document.querySelector(".popupMain").innerHTML = "";
 
     // Enlève la class "lock" du bouton si présente
-    document.querySelector(".popup button").classList.remove("lock");
+    document.querySelector(".popup .addPhoto").classList.remove("lock");
 
     const popupMain = document.querySelector(".popupMain");
     const popupGallery = document.createElement("div");
@@ -253,7 +252,7 @@ async function afficheAddImg() {
     const categories = await reponseCategories.json();
 
     // ajout de la partie "ajout d'image"
-    const btn = document.querySelector(".popup button")
+    const btn = document.querySelector(".popup .addPhoto")
     document.querySelector(".popupMain").innerHTML =
         `<div class="formImg">
             <div class="upload-box">
@@ -311,7 +310,7 @@ async function afficheAddImg() {
     });
 
     // modification du bouton
-    document.querySelector(".fa-arrow-left").classList.add("active");
+    document.querySelector(".arrow-left").classList.add("active");
     btn.classList.add("sendPhoto");
     btn.classList.add("lock");
     btn.classList.remove("addPhoto");
@@ -422,7 +421,7 @@ function addEventListenerIsAllToSend() {
  * revien sur l'affichage de suppression des images
  */
 function addEventListenerGoBack() {
-    const goBackbtn = document.querySelector(".fa-arrow-left");
+    const goBackbtn = document.querySelector(".arrow-left");
     goBackbtn.addEventListener("click", () => {
 
         document.querySelector(".popupMain").innerHTML = ``;
@@ -433,8 +432,8 @@ function addEventListenerGoBack() {
 };
 
 function turnBackAddPhotoBtn() {
-    const btn = document.querySelector(".popup button")
-    document.querySelector(".fa-arrow-left").classList.remove("active");
+    const btn = document.querySelector(".popup .sendPhoto");
+    document.querySelector(".arrow-left").classList.remove("active");
     btn.classList.add("addPhoto");
     btn.classList.remove("lock");
     btn.classList.remove("sendPhoto");
