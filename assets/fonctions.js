@@ -410,7 +410,7 @@ function addEventListenerIsAllToSend() {
         errorMsg.classList.add("hidden");
 
     } else {
-        addImgBtn.setAttribute("disabled", "");
+        addImgBtn.setAttribute("disabled");
         errorMsg.classList.remove("hidden");
     }
 };
